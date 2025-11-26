@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>对象遍历</title>
+</head>
+
+<body>
+  <script>
+    // 1. 外层对象重命名为 obj（避免和循环变量冲突，语义更清晰）
+    var obj = {
+      name: 'w',
+      age: 88
+    };
+    // 2. 获取对象的键数组（此时 keys 是 ["name","age"]）
+    var keys = Object.keys(obj);
+    console.log('keys数组：', keys); // 输出：["name", "age"]
+
+    // 3. 循环变量用 index（避免覆盖任何变量）
+    for (var index = 0; index < keys.length; index++) {
+      var key = keys[index]; // 获取当前键（name/age）
+      var value = obj[key];  // 获取对应值（w/88）
+      console.log('键：', key, '值：', value); // 输出：name w  |  age 88
+    }
+    // for of（要可迭代的） 默认不能遍历对象
+    for(var key in obj){
+      var value = obj[key];
+      console.log(key,value);
+    }
+  </script>
+</body>
+
+</html>

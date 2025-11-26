@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var info = {
+      name:'xuz',
+      'my f':'sss',
+      run(){
+        console.log('run',this.name);
+      }
+    }
+  
+    info.run()
+    // 删除对象属性
+    delete info.name
+    console.log(info);
+    //用.不行  []灵活使用，在定义属性时也行
+    console.log(info['my f']);
+    
+  </script>
+</body>
+</html>
