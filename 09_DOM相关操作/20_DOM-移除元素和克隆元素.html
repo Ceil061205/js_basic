@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20_DOM-移除元素和克隆元素.html</title>
+  <style>
+    .item {
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .clone {
+      background: #f8f9fa;
+      color: #409eff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="item" id="targetItem">待操作元素</div>
+    <div class="item">默认元素1</div>
+    <div class="item">默认元素2</div>
+  </div>
+
+  <button id="removeBtn">移除指定元素</button>
+  <button id="cloneBtn">克隆元素（浅拷贝）</button>
+  <button id="deepCloneBtn">克隆元素（深拷贝）</button>
+
+  <script>
+    const container = document.getElementById('container');
+    const targetItem = document.getElementById('targetItem');
+
+    // ========== 1. 移除元素 ==========
+    document.getElementById('removeBtn').addEventListener('click', () => {
+      // 方式1：父元素移除子元素（推荐，兼容性好）
+      if (targetItem.parentNode) {
+        container.removeChild(targetItem);
+      }
+
+      // 方式2：元素自身移除（ES6+，更简洁）
+      // targetItem.remove();
+    });
+
+    // ========== 2. 克隆元素（浅拷贝） ==========
+    document.getElementById('cloneBtn').addEventListener('click', () => {
+      // 语法：元素.cloneNode(false) → 仅克隆元素本身，不包含子节点/事件
+      const shallowClone = targetItem.cloneNode(false);
+      shallowClone.className = 'item clone';
+      shallowClone.textContent = '浅拷贝元素（无子节点）';
+      // 克隆后需手动插入DOM才会显示
+      container.appendChild(shallowClone);
+    });
+
+    // ========== 3. 克隆元素（深拷贝） ==========
+    document.getElementById('deepCloneBtn').addEventListener('click', () => {
+      // 先给目标元素加子节点，演示深拷贝效果
+      if (!targetItem.querySelector('span')) {
+        const child = document.createElement('span');
+        child.textContent = '（子节点）';
+        targetItem.appendChild(child);
+      }
+
+      // 语法：元素.cloneNode(true) → 克隆元素+所有子节点+属性，事件需特殊处理
+      const deepClone = targetItem.cloneNode(true);
+      deepClone.className = 'item clone';
+      deepClone.id = 'clone-' + Date.now(); // 避免ID重复
+      deepClone.textContent = '深拷贝元素（含子节点）' + deepClone.textContent;
+      container.appendChild(deepClone);
+    });
+
+    // ========== 核心API总结 ==========
+    console.log(`
+      【移除元素】
+      1. 父元素.removeChild(子元素) → 兼容性好，需先确认父元素存在
+      2. 元素.remove() → ES6+，直接移除自身，更简洁
+      
+      【克隆元素】
+      1. 元素.cloneNode(false) → 浅拷贝：仅元素本身，无子节点/事件
+      2. 元素.cloneNode(true) → 深拷贝：元素+所有子节点+属性，无绑定事件
+    `);
+  </script>
+</body>
+
+</html>

@@ -13,8 +13,20 @@
     var index = msg.indexOf(name)//没有返回-1
     console.log(index);
     
-    
+    if (msg.includes(name)){//返回布尔
+      console.log('include'); 
+    }
 
+    console.log(msg.startsWith('my'));//boolean
+    console.log(msg.endsWith('xyz'));
+    
+    var newmsg = msg.replace('xyz','raven')
+    console.log(newmsg);
+    var newmsg2 = msg.replace('xyz', function(){
+      return name.toUpperCase()
+    })
+    console.log(newmsg2);
+    
   </script>
 </body>
 </html>

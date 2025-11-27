@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10_元素的全局属性-hidden</title>
+</head>
+
+<body>
+  <div class="box" hidden>默认隐藏的div</div>
+  <button id="toggleBtn">切换显示/隐藏</button>
+
+  <script>
+    // 获取元素
+    const box = document.querySelector('.box');
+    const btn = document.getElementById('toggleBtn');
+
+    // 1. 查看hidden属性值（布尔型）
+    console.log('初始hidden状态：', box.hidden); // true
+
+    // 2. 手动修改hidden属性（控制显示/隐藏）
+    btn.addEventListener('click', () => {
+      box.hidden = !box.hidden; // 取反切换状态
+      console.log('切换后hidden状态：', box.hidden);
+    });
+
+    // 3. 补充：通过setAttribute/removeAttribute操作
+    // box.setAttribute('hidden', 'hidden'); // 设为隐藏（等效box.hidden = true）
+    // box.removeAttribute('hidden'); // 取消隐藏（等效box.hidden = false）
+
+    // 4. 对比：hidden vs style.display
+    const testDiv = document.createElement('div');
+    testDiv.textContent = '测试display隐藏';
+    document.body.appendChild(testDiv);
+
+    // hidden是语义化隐藏（不占空间，屏幕阅读器也忽略）
+    // display:none仅视觉隐藏（不占空间，语义上仍存在）
+    setTimeout(() => {
+      testDiv.style.display = 'none';
+      console.log('display:none后，hidden状态：', testDiv.hidden); // false
+    }, 2000);
+  </script>
+</body>
+
+</html>

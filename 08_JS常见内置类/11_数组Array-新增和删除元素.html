@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = ['b','a','k']
+    arr.push('aaaaa')
+    console.log(arr);
+    arr.pop()
+    console.log(arr);
+    arr.unshift('111')//效率较低
+    console.log(arr);
+    arr.shift()
+    console.log(arr);
+
+    arr.splice(1,2)//从第几个开始 删除元素个数 会改变原数组
+    console.log(arr);
+    arr.splice(1,0,'why')//第二个数为0或负表示添加元素
+    console.log(arr);
+    
+    
+    
+    
+
+    
+  </script>
+</body>
+</html>

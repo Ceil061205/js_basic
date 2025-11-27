@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date 构造函数示例</title>
+</head>
+
+<body>
+  <script>
+    // 1. 无参数：返回当前系统时间
+    console.log(new Date());
+
+    // 2. 字符串参数：支持标准日期格式（注意月份是2，不是02也能解析）
+    console.log(new Date('2022-2-2'));
+
+    // 3. 多数字参数：年, 月(0-11), 日, 时, 分, 秒, 毫秒（月份10对应11月）
+    console.log(new Date(2022, 10, 10, 9, 8, 7, 333));
+
+    // 4. 数字参数：毫秒数（从1970-01-01 00:00:00 UTC开始计算）
+    console.log(new Date(82828829929));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05_全局变量的使用细节.html</title>
+</head>
+
+<body>
+  <button id="btn1">修改变量</button>
+  <button id="btn2">读取变量</button>
+
+  <script>
+    // ========== 1. 全局变量的定义方式 ==========
+    // 方式1：直接声明（最常见，挂载到window）
+    var globalVar1 = '全局变量1';
+    let globalVar2 = '全局变量2'; // ES6 let/const声明的全局变量，不挂载到window
+    const GLOBAL_CONST = '全局常量'; // 常量建议大写命名
+
+    // 方式2：直接挂载到window（显式全局，兼容所有场景）
+    window.globalVar3 = '全局变量3';
+
+    // 方式3：未声明直接赋值（隐式全局，不推荐，易误操作）
+    // globalVar4 = '隐式全局变量'; // 严格模式下报错
+
+    // ========== 2. 全局变量的访问规则 ==========
+    console.log('全局作用域访问var1：', globalVar1); // 直接访问
+    console.log('window访问var1：', window.globalVar1); // var声明的全局变量可通过window访问
+    console.log('window访问var2：', window.globalVar2); // undefined（let/const不挂载window）
+    console.log('window访问var3：', window.globalVar3); // 显式挂载的全局变量可访问
+
+    // 函数内访问全局变量
+    function testAccess() {
+      console.log('函数内访问全局常量：', GLOBAL_CONST); // 全局变量可跨作用域访问
+      let localVar = '局部变量'; // 局部变量，仅函数内有效
+      console.log('函数内局部变量：', localVar);
+    }
+    testAccess();
+    // console.log(localVar); // 报错：局部变量外部无法访问
+
+    // ========== 3. 全局变量的修改与风险 ==========
+    document.getElementById('btn1').addEventListener('click', () => {
+      globalVar1 = '修改后的全局变量1'; // 任意位置可修改全局变量
+      // GLOBAL_CONST = '修改常量'; // 报错：const声明的常量不可修改
+      console.log('修改后var1：', globalVar1);
+    });
+
+    document.getElementById('btn2').addEventListener('click', () => {
+      console.log('读取全局变量1：', globalVar1);
+      console.log('读取全局变量3：', window.globalVar3);
+    });
+
+    // ========== 4. 全局变量的风险与规避 ==========
+    // 风险1：命名冲突（不同脚本的全局变量名重复）
+    // 规避方案：命名空间/模块化
+    window.MyNamespace = { // 自定义命名空间
+      name: '命名空间变量',
+      fn: () => console.log('命名空间内的方法')
+    };
+    console.log('命名空间变量：', MyNamespace.name);
+    MyNamespace.fn();
+
+    // 风险2：内存泄漏（全局变量不会自动销毁）
+    // 规避方案：不用时手动置空
+    function clearGlobal() {
+      globalVar1 = null;
+      window.globalVar3 = null;
+      console.log('全局变量已置空');
+    }
+
+    // ========== 5. 严格模式下的全局变量规则 ==========
+    'use strict'; // 开启严格模式
+    // undeclaredVar = '未声明赋值'; // 报错：Assignment to undeclared variable
+    window.strictVar = '严格模式下仅允许显式全局变量';
+
+    // ========== 核心总结 ==========
+    console.log(`
+      【定义规则】
+      1. var声明的全局变量挂载到window，let/const不挂载；
+      2. 显式挂载window.xxx更可控，隐式全局（未声明赋值）严禁使用；
+      3. const声明全局常量，不可修改。
+
+      【风险与规避】
+      1. 命名冲突：用命名空间/ES6模块隔离；
+      2. 内存泄漏：不用时手动置空；
+      3. 严格模式：禁止未声明赋值，减少误操作。
+
+      【使用场景】
+      1. 仅用于跨作用域共享的核心数据（如配置、全局状态）；
+      2. 尽量减少全局变量，优先用局部变量/模块化。
+    `);
+  </script>
+</body>
+
+</html>

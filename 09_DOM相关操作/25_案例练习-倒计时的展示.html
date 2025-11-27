@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>25_案例练习-倒计时的展示</title>
+  <style>
+    .countdown {
+      font-size: 32px;
+      text-align: center;
+      margin-top: 100px;
+      color: #e64340;
+      font-family: Arial, sans-serif;
+    }
+
+    .unit {
+      font-size: 16px;
+      margin: 0 5px;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="countdown">00天 00时 00分 00秒</div>
+
+  <script>
+    // 目标倒计时时间（示例：2025-12-31 23:59:59）
+    const targetTime = new Date('2025-12-31 23:59:59').getTime();
+    const countdownEl = document.querySelector('.countdown');
+
+    // 补零函数
+    const padZero = num => num.toString().padStart(2, '0');
+
+    // 计算并更新倒计时
+    function updateCountdown() {
+      // 当前时间戳（毫秒）
+      const now = Date.now();
+      // 剩余时间（毫秒），确保不会为负数
+      let remaining = Math.max(targetTime - now, 0);
+
+      // 转换为天/时/分/秒
+      const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+      remaining %= (1000 * 60 * 60 * 24); // 剩余毫秒数扣除天数
+
+      const hours = Math.floor(remaining / (1000 * 60 * 60));
+      remaining %= (1000 * 60 * 60); // 剩余毫秒数扣除小时
+
+      const minutes = Math.floor(remaining / (1000 * 60));
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+      // 格式化显示
+      countdownEl.innerHTML = `${padZero(days)}<span class="unit">天</span> 
+                               ${padZero(hours)}<span class="unit">时</span> 
+                               ${padZero(minutes)}<span class="unit">分</span> 
+                               ${padZero(seconds)}<span class="unit">秒</span>`;
+
+      // 倒计时结束后停止定时器
+      if (targetTime - now <= 0) {
+        clearInterval(timer);
+        countdownEl.textContent = '倒计时结束！';
+      }
+    }
+
+    // 初始化更新一次
+    updateCountdown();
+    // 每秒更新倒计时
+    const timer = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+
+</html>

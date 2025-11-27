@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>07_EventTarget-dispatchEvent 详解</title>
+  <style>
+    .demo-container {
+      width: 300px;
+      padding: 20px;
+      margin: 20px;
+      border: 1px solid #ddd;
+      background: #f8f9fa;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .log {
+      margin-top: 15px;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #eee;
+      font-size: 14px;
+      color: #333;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="demo-container">
+    <h3>dispatchEvent 实战演示</h3>
+    <button class="btn" id="triggerNative">触发原生click事件</button>
+    <button class="btn" id="triggerCustom">触发自定义事件</button>
+    <div class="log" id="logBox">日志输出：<br></div>
+  </div>
+
+  <script>
+    // 工具函数：日志输出
+    function log(msg) {
+      const logBox = document.getElementById('logBox');
+      logBox.innerHTML += `> ${msg}<br>`;
+      logBox.scrollTop = logBox.scrollHeight; // 滚动到底部
+    }
+
+    // 获取核心元素
+    const triggerNativeBtn = document.getElementById('triggerNative');
+    const triggerCustomBtn = document.getElementById('triggerCustom');
+    const demoContainer = document.querySelector('.demo-container');
+
+    // ========== 1. 基础准备：绑定原生事件 ==========
+    // 给容器绑定click事件（监听原生/手动触发的click）
+    demoContainer.addEventListener('click', (e) => {
+      log(`原生click事件触发 → 触发源：${e.target.tagName}，是否手动触发：${e.isTrusted ? '否' : '是'}`);
+      // e.isTrusted：true=用户行为触发，false=代码手动触发
+    });
+
+    // ========== 2. 触发原生事件（模拟用户操作） ==========
+    triggerNativeBtn.addEventListener('click', () => {
+      log('--- 开始手动触发原生click事件 ---');
+
+      // 步骤1：创建原生事件对象（MouseEvent）
+      // 语法：new MouseEvent(事件类型, 配置项)
+      const nativeClickEvent = new MouseEvent('click', {
+        bubbles: true, // 是否冒泡（默认false）
+        cancelable: true, // 是否可取消默认行为（默认false）
+        clientX: 150, // 模拟点击坐标（相对视口）
+        clientY: 100,
+        isTrusted: false // 手动触发的事件该属性固定为false
+      });
+
+      // 步骤2：通过dispatchEvent触发事件
+      // 语法：EventTarget.dispatchEvent(事件对象)
+      demoContainer.dispatchEvent(nativeClickEvent);
+
+      log('原生click事件手动触发完成！');
+    });
+
+    // ========== 3. 触发自定义事件（业务通信） ==========
+    // 先绑定自定义事件（自定义事件名称：customEvent）
+    demoContainer.addEventListener('customEvent', (e) => {
+      log(`自定义事件触发 → 附加数据：${JSON.stringify(e.detail)}`);
+      // e.detail：自定义事件的附加数据（唯一传递数据的方式）
+    });
+
+    triggerCustomBtn.addEventListener('click', () => {
+      log('--- 开始触发自定义事件 ---');
+
+      // 步骤1：创建自定义事件对象（CustomEvent）
+      const customEvent = new CustomEvent('customEvent', {
+        bubbles: true, // 允许冒泡
+        cancelable: true,
+        detail: { // 自定义附加数据（任意类型）
+          name: '业务事件',
+          time: new Date().toLocaleTimeString(),
+          data: [1, 2, 3]
+        }
+      });
+
+      // 步骤2：触发自定义事件
+      demoContainer.dispatchEvent(customEvent);
+
+      log('自定义事件触发完成！');
+    });
+
+    // ========== 4. 高级用法：触发键盘事件 ==========
+    // 示例：模拟按下Enter键
+    demoContainer.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        log(`键盘事件触发 → 按下Enter键（keyCode：${e.keyCode}）`);
+      }
+    });
+
+    // 额外演示：触发键盘事件
+    setTimeout(() => {
+      log('--- 自动触发键盘Enter事件（5秒后） ---');
+      const keyDownEvent = new KeyboardEvent('keydown', {
+        key: 'Enter',
+        keyCode: 13,
+        bubbles: true
+      });
+      demoContainer.dispatchEvent(keyDownEvent);
+    }, 5000);
+
+    // ========== 核心知识点总结 ==========
+    log('=== dispatchEvent 核心规则 ===');
+    log('1. 语法：target.dispatchEvent(Event实例)');
+    log('2. 原生事件：用对应构造函数（MouseEvent/KeyboardEvent）');
+    log('3. 自定义事件：用CustomEvent，通过detail传参');
+    log('4. isTrusted：区分用户行为/代码触发的事件');
+    log('5. 手动触发的事件会遵循正常事件流（捕获→目标→冒泡）');
+  </script>
+</body>
+
+</html>

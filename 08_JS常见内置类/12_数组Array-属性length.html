@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = ['a','a','k']
+    arr.push('aaaaa')
+    console.log(arr.length);    
+    arr.length = 10//扩容
+    arr.length = 1//截取 =0清空数组
+    console.log(arr);
+    for (var index in arr){//能拿到索引
+      console.log(index,arr[index]);
+    }
+    for (var item of arr){//只能拿到数据
+      console.log(item);
+      
+    }
+  </script>
+</body>
+</html>

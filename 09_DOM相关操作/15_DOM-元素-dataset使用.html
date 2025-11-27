@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15_DOM-元素-dataset使用</title>
+  <style>
+    .item {
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 预设data-*自定义属性 -->
+  <div class="item" id="userCard" data-user-id="1001" data-user-name="张三" data-user-age="25" data-is-vip="true">用户卡片
+  </div>
+  <button id="updateData">更新用户数据</button>
+  <button id="getAllData">获取所有自定义数据</button>
+
+  <script>
+    const userCard = document.getElementById('userCard');
+    const updateBtn = document.getElementById('updateData');
+    const getAllBtn = document.getElementById('getAllData');
+
+    // ========== 1. 读取dataset数据 ==========
+    // 方式1：直接读取（自动省略data-前缀，驼峰命名）
+    console.log('用户ID：', userCard.dataset.userId); // 1001
+    console.log('用户名：', userCard.dataset.userName); // 张三
+    console.log('是否VIP：', userCard.dataset.isVip); // true（字符串类型）
+    // 转换类型（dataset值均为字符串，需手动转布尔/数字）
+    const userAge = Number(userCard.dataset.userAge);
+    console.log('用户年龄（数字）：', userAge + 1); // 26
+
+    // ========== 2. 修改/新增dataset数据 ==========
+    updateBtn.addEventListener('click', () => {
+      // 修改已有数据
+      userCard.dataset.userName = '李四';
+      userCard.dataset.userAge = '26';
+      // 新增自定义数据（自动生成data-user-gender属性）
+      userCard.dataset.userGender = '男';
+      // 修改布尔类型数据
+      userCard.dataset.isVip = 'false';
+
+      console.log('更新后用户名：', userCard.dataset.userName); // 李四
+      console.log('新增性别属性：', userCard.getAttribute('data-user-gender')); // 男
+    });
+
+    // ========== 3. 删除dataset数据 ==========
+    // 方式1：delete操作符
+    delete userCard.dataset.isVip;
+    // 方式2：removeAttribute（等效）
+    // userCard.removeAttribute('data-is-vip');
+    console.log('删除后是否VIP：', userCard.dataset.isVip); // undefined
+
+    // ========== 4. 获取所有dataset数据 ==========
+    getAllBtn.addEventListener('click', () => {
+      // 遍历dataset（DOMStringMap类型，可遍历）
+      const allData = {};
+      for (const key in userCard.dataset) {
+        allData[key] = userCard.dataset[key];
+      }
+      console.log('所有自定义数据：', allData);
+      // 输出示例：{userId: "1001", userName: "李四", userAge: "26", userGender: "男"}
+    });
+
+    // ========== 核心注意事项 ==========
+    console.log(`
+      1. dataset仅识别data-*前缀的属性，自动省略前缀并转驼峰；
+      2. 所有值均为字符串，布尔/数字需手动转换；
+      3. 修改dataset会同步到HTML标签属性，反之亦然；
+      4. 删除用delete 元素.dataset.属性名 或 removeAttribute；
+      5. 适合存储元素关联的业务数据（无需自定义非标准属性）。
+    `);
+  </script>
+</body>
+
+</html>

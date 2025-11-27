@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 200px;
+      background-color: pink;
+    }
+    .box span{
+      width: 100px;
+      height: 100px;
+      background-color: #f700ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <span></span>
+  </div>
+  <script>
+    var spanEl = document.querySelector('span')
+    var divEl = document.querySelector('.box')
+    var body = document.body
+    // 2从内向外事件冒泡
+    // spanEl.onclick = function () {
+    //     alert('span');
+    //   }
+    // divEl.onclick = function () {
+    //  alert('div');
+    // }
+    // body.onclick = function () {
+    //   alert('body');
+    // }
+    // 1捕获 从外向内
+     spanEl.addEventListener('click', function () {
+        alert('span');
+      },true)
+      divEl.addEventListener('click', function () {
+        alert('div');
+      }, true)
+      body.addEventListener('click',function () {
+        alert('body');
+      }, true)
+
+  </script>
+</body>
+</html>

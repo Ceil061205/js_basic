@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表格元素查询</title>
+</head>
+
+<body>
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>xm</th>
+        <th>nn</th>
+        <th>sg</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>xyz</td>
+        <td>18</td>
+        <td>999</td>
+      </tr>
+      <tr>
+        <td>xy2z</td>
+        <td>128</td>
+        <td>9299</td>
+      </tr>
+    </tbody>
+    <tfoot> <!-- 补充tfoot演示 -->
+      <tr>
+        <td>合计</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script>
+    // ========== 1. 基础表格元素查询（专属属性） ==========
+    const tableEl = document.getElementById('userTable'); // 优先ID查询表格
+
+    // ✅ 表格专属属性（核心）
+    const thead = tableEl.tHead; // 获取<thead>（单个，即使没有也返回null）
+    const tbodyList = tableEl.tBodies; // 获取所有<tbody>（HTMLCollection，支持多个tbody）
+    const tfoot = tableEl.tFoot; // 获取<tfoot>（单个，无则返回null）
+
+    console.log('★ 表格thead：', thead); // <thead>元素
+    console.log('★ 表格tbody集合：', tbodyList); // HTMLCollection[tbody]
+    console.log('★ 第一个tbody：', tbodyList[0]); // 取第一个<tbody>
+    console.log('★ 表格tfoot：', tfoot); // <tfoot>元素
+
+    // ❌ 错误修正：tableEl.root 不存在！DOM元素没有root属性（你可能混淆了其他API）
+    // 如需查表格的根节点，用 tableEl.parentNode / tableEl.ownerDocument.documentElement
+
+    // ========== 2. 表格行/单元格查询（高频） ==========
+    // ① 获取表格所有行（包括thead/tbody/tfoot的tr）
+    const allTr = tableEl.rows; // HTMLCollection，按文档顺序排列
+    console.log('★ 表格所有行：', allTr); // [tr(thead), tr(tbody1), tr(tbody2), tr(tfoot)]
+
+    // ② 获取指定行的单元格
+    const firstTbodyTr = tbodyList[0].rows[0]; // 第一个tbody的第一行
+    const firstTrCells = firstTbodyTr.cells; // 该行的所有单元格（td/th）
+    console.log('★ 第一行单元格：', firstTrCells); // [td(xyz), td(18), td(999)]
+    console.log('★ 第一行第二个单元格内容：', firstTrCells[1].textContent); // 18
+
+    // ========== 3. 其他表格查询方式（通用选择器） ==========
+    // 用CSS选择器精准查表格内元素
+    const allTh = tableEl.querySelectorAll('th'); // 所有表头单元格
+    const tbodyTrList = tableEl.querySelectorAll('tbody tr'); // tbody下所有行
+    const sgColumn = tableEl.querySelectorAll('td:nth-child(3)'); // 第三列（sg列）所有单元格
+
+    console.log('★ 所有表头：', allTh);
+    console.log('★ tbody所有行：', tbodyTrList);
+    console.log('★ sg列所有值：', Array.from(sgColumn).map(td => td.textContent)); // ["999", "9299"]
+  </script>
+</body>
+
+</html>

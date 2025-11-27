@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05_事件处理函数中的this</title>
+  <style>
+    button {
+      padding: 8px 16px;
+      cursor: pointer;
+      margin: 20px;
+    }
+    
+    .tip {
+      margin: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <button class="btn">测试按钮（普通函数）</button>
+    <button class="btn-arrow">测试按钮（箭头函数）</button>
+  </div>
+  <p class="tip">控制台查看 this 指向 →</p>
+
+  <script>
+    // 获取元素
+    const btn = document.querySelector('.btn');
+    const btnArrow = document.querySelector('.btn-arrow');
+    const box = document.querySelector('.box');
+
+    // ========== 1. 普通函数作为事件处理函数 ==========
+    // this 指向：绑定事件的 DOM 元素（currentTarget）
+    btn.onclick = function (event) {
+      console.log('===== 普通函数 - this 指向 =====');
+      console.log('this === 绑定事件的按钮：', this === btn); // true
+      console.log('this === event.currentTarget：', this === event.currentTarget); // true
+      console.log('this 指向的元素：', this); // <button class="btn">
+      console.log('this.textContent：', this.textContent.trim()); // 测试按钮（普通函数）
+    };
+
+    // ========== 2. 箭头函数作为事件处理函数 ==========
+    // this 指向：定义时的外层作用域（此处是 window/全局）
+    btnArrow.onclick = (event) => {
+      console.log('\n===== 箭头函数 - this 指向 =====');
+      console.log('this === window：', this === window); // true（浏览器环境）
+      console.log('this !== 按钮：', this !== btnArrow); // true
+      console.log('箭头函数 this：', this); // window
+      // 箭头函数中需通过 event.target/currentTarget 获取元素
+      console.log('事件触发元素：', event.target); // <button class="btn-arrow">
+      console.log('事件绑定元素：', event.currentTarget); // <button class="btn-arrow">
+    };
+
+    // ========== 3. 手动改变 this 指向（bind） ==========
+    // 场景：强制让 this 指向指定元素（如父容器）
+    function customHandler() {
+      console.log('\n===== bind 改变 this 指向 =====');
+      console.log('this 指向父容器 box：', this === box); // true
+      console.log('this.textContent：', this.textContent.trim()); // 两个按钮的父容器内容
+    }
+    // 用 bind 绑定 this 为 box，返回新函数
+    btn.addEventListener('click', customHandler.bind(box));
+
+    // ========== 4. 事件委托中的 this ==========
+    // 父容器绑定事件，this 指向父容器（box）
+    box.onclick = function (event) {
+      console.log('\n===== 事件委托 - this 指向 =====');
+      console.log('this 指向父容器 box：', this === box); // true
+      console.log('实际点击的元素（target）：', event.target); // 点击的按钮/盒子空白处
+      // 事件委托核心：通过 target 判断触发元素
+      if (event.target.tagName === 'BUTTON') {
+        console.log('点击了按钮：', event.target.textContent.trim());
+      }
+    };
+
+    // ========== 核心总结 ==========
+    console.log(`
+      【事件处理函数 this 核心规则】
+      1. 普通函数：this → 绑定事件的 DOM 元素（currentTarget）
+      2. 箭头函数：this → 定义时的外层作用域（浏览器中默认 window）
+      3. bind/call/apply：可强制改变普通函数的 this 指向
+      4. 事件委托中：this 指向父容器，需通过 event.target 判断实际触发元素
+    `);
+  </script>
+</body>
+
+</html>

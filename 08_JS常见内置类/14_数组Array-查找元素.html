@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = ['a','a','k']
+    console.log(arr.indexOf('a'));//没有找到返回-1 找到返回索引
+    // 对象初始化null
+    var stu = [
+      { id: '001', name: 'xyz' },
+      { id: '002', name: 'xyz' }
+    ]
+    console.log(stu.find(function(item) {
+      if(item.id === '001')
+      return true
+    }));
+    
+
+    
+  </script>
+</body>
+</html>

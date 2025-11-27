@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11_元素的attribute</title>
+</head>
+
+<body>
+  <div id="box" class="container" data-index="1" title="测试容器">Attribute测试</div>
+  <input type="text" value="默认值" disabled>
+
+  <script>
+    // 获取测试元素
+    const box = document.getElementById('box');
+    const input = document.querySelector('input');
+
+    // 1. 获取属性（getAttribute）
+    console.log('获取id：', box.getAttribute('id')); // box
+    console.log('获取自定义属性：', box.getAttribute('data-index')); // 1
+    console.log('获取不存在的属性：', box.getAttribute('abc')); // null
+    console.log('获取布尔属性：', input.getAttribute('disabled')); // ''（存在即返回空字符串）
+
+    // 2. 设置属性（setAttribute）
+    box.setAttribute('class', 'new-container'); // 覆盖原有class
+    box.setAttribute('data-index', 2); // 修改自定义属性
+    box.setAttribute('title', '新的标题'); // 修改title
+    input.setAttribute('value', '修改后的值'); // 修改input值
+
+    // 3. 移除属性（removeAttribute）
+    box.removeAttribute('class'); // 移除class属性
+    input.removeAttribute('disabled'); // 移除禁用状态
+
+    // 4. 检测属性是否存在（hasAttribute）
+    console.log('是否有id：', box.hasAttribute('id')); // true
+    console.log('是否有class：', box.hasAttribute('class')); // false
+
+    // 5. 批量获取所有属性（attributes）
+    console.log('box所有属性：', box.attributes); // NamedNodeMap集合
+    // 遍历所有属性
+    for (let attr of box.attributes) {
+      console.log(`${attr.name} = ${attr.value}`);
+    }
+
+    // 6. 对比：属性节点（attribute）vs DOM属性（property）
+    console.log('attribute的value：', input.getAttribute('value')); // 修改后的值
+    console.log('property的value：', input.value); // 修改后的值
+    // 布尔属性差异：disabled
+    input.setAttribute('disabled', 'false'); // 仍会禁用（存在即生效）
+    console.log('attribute.disabled：', input.getAttribute('disabled')); // 'false'
+    console.log('property.disabled：', input.disabled); // true（布尔值）
+
+    // 7. 自定义数据属性（dataset）
+    console.log('dataset获取：', box.dataset.index); // 2（自动映射data-*）
+    box.dataset.index = 3; // 修改自定义数据属性
+    box.dataset.info = '自定义信息'; // 新增data-info属性
+    console.log('新增data-info：', box.getAttribute('data-info')); // 自定义信息
+  </script>
+</body>
+
+</html>

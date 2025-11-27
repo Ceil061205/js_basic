@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12_DOM元素的property操作</title>
+</head>
+
+<body>
+  <div id="box" class="container" title="测试容器" data-info="123">测试DIV</div>
+  <input type="text" value="初始值" disabled>
+  <input type="checkbox" checked> 复选框
+
+  <script>
+    // 获取测试元素
+    const box = document.getElementById('box');
+    const input = document.querySelector('input[type="text"]');
+    const checkbox = document.querySelector('input[type="checkbox"]');
+
+    // 1. 基础内置property操作（直接读写）
+    // 通用元素属性
+    console.log('id属性：', box.id); // box
+    box.id = 'new-box'; // 修改id
+    console.log('修改后id：', box.id); // new-box
+
+    console.log('title属性：', box.title); // 测试容器
+    box.title = '新标题'; // 修改title
+
+    // 类名相关
+    console.log('className：', box.className); // container
+    box.className = 'new-container'; // 覆盖类名
+    box.classList.add('active'); // 追加类名（classList是DOMTokenList）
+    console.log('classList：', box.classList); // ["new-container", "active"]
+
+    // 2. 表单元素专属property
+    console.log('input初始value：', input.value); // 初始值
+    input.value = '修改后的输入值'; // 直接修改输入框值
+    console.log('修改后value：', input.value); // 修改后的输入值
+
+    console.log('input禁用状态：', input.disabled); // true
+    input.disabled = false; // 取消禁用（布尔值操作）
+
+    console.log('复选框选中状态：', checkbox.checked); // true
+    checkbox.checked = false; // 取消选中
+
+    // 3. 自定义property（仅JS层面，不映射到HTML属性）
+    box.age = 20; // 新增自定义属性
+    box.userInfo = { name: 'test', id: 1 }; // 可赋值任意类型
+    console.log('自定义property：', box.age, box.userInfo); // 20 {name: 'test', id: 1}
+
+    // 4. dataset（data-*属性的专属property）
+    console.log('data-info：', box.dataset.info); // 123（自动映射data-*）
+    box.dataset.info = '456'; // 修改data-info
+    box.dataset.type = 'test'; // 新增data-type属性
+    console.log('新增data-type：', box.getAttribute('data-type')); // test（同步到HTML属性）
+
+    // 5. Attribute vs Property 核心区别
+    // 5.1 布尔属性差异
+    input.setAttribute('disabled', 'false'); // HTML属性设为false（仍禁用）
+    console.log('attribute.disabled：', input.getAttribute('disabled')); // 'false'
+    console.log('property.disabled：', input.disabled); // true（布尔值，以property为准）
+
+    // 5.2 输入框value差异（输入后property与attribute不同步）
+    input.value = '手动修改值';
+    console.log('property.value：', input.value); // 手动修改值
+    console.log('attribute.value：', input.getAttribute('value')); // 初始值（HTML属性未变）
+
+    // 5.3 自定义属性不互通
+    box.setAttribute('custom', 'abc'); // HTML属性
+    console.log('attribute.custom：', box.getAttribute('custom')); // abc
+    console.log('property.custom：', box.custom); // undefined（未定义的property）
+  </script>
+</body>
+
+</html>

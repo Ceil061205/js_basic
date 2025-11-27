@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date 构造函数示例</title>
+</head>
+
+<body>
+  <script>
+    var time = '2033-03-23'
+    var date = new Date(time)
+    var timestamp = date.getTime()
+    console.log(timestamp);
+    
+    var t = Date.parse(time)
+    console.log(t);
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14_DOM-元素的style和class.html</title>
+  <style>
+    /* 预设类样式（演示class操作） */
+    .base {
+      width: 200px;
+      height: 100px;
+      margin: 20px 0;
+      border: 1px solid #ccc;
+    }
+
+    .active {
+      background: #f0f8ff;
+      color: #e64340;
+    }
+
+    .bold {
+      font-weight: 700;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box" class="base">Style & Class 测试</div>
+  <button id="toggleActive">切换active类</button>
+  <button id="changeStyle">修改行内样式</button>
+
+  <script>
+    const box = document.getElementById('box');
+    const toggleBtn = document.getElementById('toggleActive');
+    const styleBtn = document.getElementById('changeStyle');
+
+    // ========== 1. 行内style操作（直接修改CSS属性） ==========
+    // 单个样式赋值（驼峰命名，如backgroundColor）
+    box.style.padding = '10px';
+    box.style.borderRadius = '4px';
+    console.log('行内样式padding：', box.style.padding); // 10px
+
+    // 批量设置行内样式（cssText）
+    styleBtn.addEventListener('click', () => {
+      box.style.cssText = 'color: #276ef1; font-size: 18px; line-height: 1.5;';
+      console.log('批量样式后：', box.style.cssText);
+    });
+
+    // ========== 2. class操作（推荐：复用CSS类，低耦合） ==========
+    // 2.1 className：直接覆盖/替换类名（字符串操作）
+    console.log('初始类名：', box.className); // base
+    box.className = 'base bold'; // 覆盖为多个类
+
+    // 2.2 classList：灵活操作（add/remove/toggle/contains）
+    toggleBtn.addEventListener('click', () => {
+      box.classList.toggle('active'); // 切换active类（有则删，无则加）
+      console.log('是否包含active：', box.classList.contains('active'));
+    });
+
+    // 追加/移除单个类
+    box.classList.add('bold'); // 追加（重复添加不生效）
+    // box.classList.remove('bold'); // 移除
+
+    // 一次性操作多个类
+    box.classList.add('active', 'bold');
+    box.classList.remove('active', 'bold');
+
+    // ========== 3. 获取计算样式（最终渲染的样式，只读） ==========
+    const computedStyle = getComputedStyle(box);
+    console.log('计算后的背景色：', computedStyle.backgroundColor);
+    console.log('计算后的宽度：', computedStyle.width); // 200px（来自.base类）
+
+    // ========== 4. 核心区别：style vs class ==========
+    console.log(`
+      1. style：行内样式，优先级高，适合动态修改单个/少量样式
+      2. class：复用CSS类，结构与样式分离，适合批量样式切换
+      3. getComputedStyle：获取最终渲染样式，只读，不能修改
+    `);
+  </script>
+</body>
+
+</html>

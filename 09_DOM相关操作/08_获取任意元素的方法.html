@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>元素查询示例</title>
+</head>
+
+<body>
+  <div class="box" id="boxId">
+    ooo
+    <div class="container" name="containerName">
+      <p>jhjjssss
+        <span class="keyword" id="keyid">keyweod</span>ssss
+      </p>
+    </div>
+    <span class="keyword">第二个关键词</span>
+  </div>
+
+  <script>
+    // 基础查询
+    const keyList = document.getElementsByClassName('keyword');
+    const keyById = document.getElementById('keyid');
+    const firstKeyword = document.querySelector('.keyword');
+    const allKeyword = document.querySelectorAll('.keyword');
+
+    // 样式操作
+    if (keyList.length > 0) keyList[0].style.color = 'red';
+    for (let i = 0; i < keyList.length; i++) {
+      keyList[i].style.color = 'red';
+      keyList[i].style.fontWeight = 'bold';
+    }
+    if (keyById) keyById.style.backgroundColor = '#ffeeee';
+    allKeyword.forEach(item => item.style.textDecoration = 'underline');
+
+    // 补充查询方式
+    const allSpan = document.getElementsByTagName('span');
+    const boxDiv = document.getElementById('boxId').getElementsByTagName('div');
+    const containerByName = document.getElementsByName('containerName');
+
+    if (containerByName.length > 0) {
+      containerByName[0].style.border = '1px solid #ccc';
+      containerByName[0].style.padding = '5px';
+    }
+
+    // 节点关系查询
+    const keyEl = document.getElementById('keyid');
+    const parentP = keyEl.parentElement;
+    const parentContainer = keyEl.closest('.container');
+    const containerEl = document.querySelector('.container');
+    const containerChildren = containerEl.children;
+    const containerFirstChild = containerEl.firstElementChild;
+    const secondKeyword = allKeyword[1];
+    const prevSibling = secondKeyword.previousElementSibling;
+    const nextSibling = secondKeyword.nextElementSibling;
+
+    // 特殊元素查询
+    const htmlEl = document.documentElement;
+    const bodyEl = document.body;
+    const headEl = document.head;
+
+    // 控制台输出
+    console.log('按类名查询：', keyList);
+    console.log('按ID查询：', keyById);
+    console.log('querySelector：', firstKeyword);
+    console.log('querySelectorAll：', allKeyword);
+    console.log('按标签名查span：', allSpan);
+    console.log('box内的div：', boxDiv);
+    console.log('按name查询：', containerByName);
+    console.log('keyid父元素：', parentP, '最近.container：', parentContainer);
+    console.log('container子元素：', containerChildren, '第一个子元素：', containerFirstChild);
+    console.log('第二个keyword兄弟：', prevSibling, nextSibling);
+    console.log('HTML/Body/Head：', htmlEl, bodyEl, headEl);
+  </script>
+</body>
+
+</html>

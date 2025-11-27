@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>节点node常见属性</title>
+</head>
+
+<body>
+  <!-- 注释节点 -->
+  文本节点
+  <div class="box" id="box">元素节点</div>
+
+  <script>
+    // 获取核心节点示例
+    const box = document.getElementById('box');
+    const body = document.body;
+    const textNode = body.childNodes[2]; // 获取"文本节点"这个文本节点
+    const commentNode = body.childNodes[1]; // 获取注释节点
+
+    // 1. nodeType：节点类型（数字）
+    console.log('元素节点nodeType：', box.nodeType); // 1（元素节点）
+    console.log('文本节点nodeType：', textNode.nodeType); // 3（文本节点）
+    console.log('注释节点nodeType：', commentNode.nodeType); // 8（注释节点）
+    console.log('文档节点nodeType：', document.nodeType); // 9（文档节点）
+
+    // 2. nodeName：节点名称（大写/固定值） tagName对element
+    console.log('元素节点nodeName：', box.nodeName); // DIV（元素标签大写）
+    console.log('文本节点nodeName：', textNode.nodeName); // #text（固定值）
+    console.log('注释节点nodeName：', commentNode.nodeName); // #comment（固定值）
+
+    // 3. nodeValue：节点值
+    console.log('元素节点nodeValue：', box.nodeValue); // null（元素节点无值）
+    console.log('文本节点nodeValue：', textNode.nodeValue.trim()); // 文本节点（去除空格）
+    console.log('注释节点nodeValue：', commentNode.nodeValue); // 注释节点（zhushi）
+
+    // 4. innerHTML/innerText/textContent：元素内容
+    console.log('box.innerHTML：', box.innerHTML); // 元素内HTML内容 可解析html元素
+    console.log('box.innerText：', box.innerText); // 可视文本内容
+    console.log('box.textContent：', box.textContent); // 所有文本内容（含隐藏）
+
+    // 5. 节点关系属性
+    console.log('box父节点：', box.parentNode); // body
+    console.log('box父元素：', box.parentElement); // body
+    console.log('body子节点（含文本/注释）：', body.childNodes); // NodeList
+    console.log('body子元素（仅元素）：', body.children); // HTMLCollection
+    console.log('box上一个兄弟节点：', box.previousSibling); // 文本节点
+    console.log('box上一个兄弟元素：', box.previousElementSibling); // null
+    console.log('box下一个兄弟元素：', box.nextElementSibling); // null
+
+    // 6. 元素专属属性
+    console.log('box类名：', box.className); // box
+    console.log('box类列表：', box.classList); // DOMTokenList
+    console.log('box ID：', box.id); // box
+    console.log('box标签名：', box.tagName); // DIV
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date 构造函数示例</title>
+</head>
+
+<body>
+  <script>
+    var data = new Date()
+    var date = new Date('2033-03-03')
+    console.log(date);
+    
+    var time = Date.now()//当前时间的时间戳
+    var time2 = date.getTime()
+    console.log(time,time2);
+    console.log(date.valueOf());
+    console.log(+date);
+    
+    var start = Date.now()
+    for (var i=0; i < 10000; i++){
+      // console.log(i);
+      
+    }
+    var end = Date.now()
+    console.log(end - start);//ms
+
+    
+
+
+    
+  </script>
+</body>
+</html>

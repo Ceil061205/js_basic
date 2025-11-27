@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = [1,99,3,4,0,-1,1]
+
+    arr.forEach(function(item,index,arr){
+      console.log(item,this);
+    },{name:'sh'})//第二个参数可以绑定this
+    console.log(arr);
+
+    var a2 = arr.filter(function(item){
+      return item % 2 === 0//为true加入新数组
+    })
+    console.log(a2);
+
+    var a3 = arr.map(function(item){
+      return item*item
+    })
+    console.log(a3);
+    
+    var a4 = arr.reduce(function(preValue, item){//pre上一次计算的值
+      return preValue + item //累加
+    })//初始话数值0,没有则跳过结果依旧一样
+    console.log(a4);
+
+    var s = [
+      {age:20},
+      {age:10},
+    ]
+    var ages = s.reduce(function(preValue,item){
+      return preValue + item.age
+    },0)
+    console.log(ages);
+    
+
+    var result = arr.filter(function(item){
+      return item % 2 === 0
+    }).map(function(item){
+      return item*item
+    }).reduce(function(preValue,item){
+      return preValue + item
+    },0)
+    console.log(result);
+    
+  </script>
+</body>
+</html>

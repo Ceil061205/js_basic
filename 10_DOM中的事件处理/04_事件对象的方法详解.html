@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件对象的方法详解</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: #d3cd78;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    .tip {
+      margin: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <button class="btn">测试按钮</button>
+  </div>
+  <a href="https://www.baidu.com" class="link">百度链接（测试阻止默认行为）</a>
+  <p class="tip">控制台查看事件对象方法执行效果 →</p>
+
+  <script>
+    
+    // 获取元素
+    const btnEl = document.querySelector('.btn');
+    const box = document.querySelector('.box');
+    const link = document.querySelector('.link');
+
+    // ========== 1. preventDefault()：阻止事件默认行为 ==========
+    // 场景：阻止a标签跳转、表单提交、右键菜单等默认行为
+    link.addEventListener('click', function (event) {
+      event.preventDefault(); // 阻止链接跳转
+      console.log('===== preventDefault() 执行 =====');
+      console.log('是否阻止了默认行为：', event.defaultPrevented); // true
+      console.log('链接跳转已被阻止');
+    });
+
+    // ========== 2. stopPropagation()：阻止事件冒泡 ==========
+    // 按钮点击事件（演示冒泡）
+    btnEl.addEventListener('click', function (event) {
+      // 注释/取消注释下面一行，查看冒泡是否被阻止
+      // event.stopPropagation(); 
+      console.log('\n===== 按钮点击事件 =====');
+      console.log('stopPropagation() 执行状态：', event.stopPropagation ? '已执行' : '未执行');
+      console.log('按钮事件触发（target：', event.target, '）');
+    });
+
+    // 盒子点击事件（冒泡目标）
+    box.addEventListener('click', function (event) {
+      console.log('\n===== 盒子点击事件（冒泡） =====');
+      console.log('盒子事件触发（currentTarget：', event.currentTarget, '）');
+    });
+
+    // body点击事件（最终冒泡目标）
+    document.body.addEventListener('click', function () {
+      console.log('\n===== body点击事件（冒泡） =====');
+      console.log('body事件触发（事件冒泡到底）');
+    });
+
+    // ========== 3. stopImmediatePropagation()：阻止冒泡 + 同元素后续事件 ==========
+    // 为盒子绑定多个同类型事件，演示该方法
+    box.addEventListener('click', function (event) {
+      event.stopImmediatePropagation(); // 同时阻止冒泡 + 同元素后续事件
+      console.log('\n===== 盒子第一个click事件（stopImmediatePropagation） =====');
+      console.log('该方法执行后，盒子第二个click事件和body事件都不会触发');
+    });
+
+    // 同元素的第二个click事件（会被stopImmediatePropagation阻止）
+    box.addEventListener('click', function () {
+      console.log('盒子第二个click事件（不会触发）');
+    });
+
+    // ========== 4. 方法对比总结 ==========
+    console.log(`
+      【事件对象核心方法对比】
+      1. preventDefault() → 仅阻止默认行为（如链接跳转），不影响事件冒泡
+      2. stopPropagation() → 仅阻止事件冒泡，不影响默认行为，同元素后续事件仍执行
+      3. stopImmediatePropagation() → 阻止冒泡 + 同一元素上后续绑定的同类型事件
+      
+      【辅助属性】
+      - defaultPrevented：布尔值，判断是否调用过preventDefault()
+    `);
+
+    // 补充：右键菜单阻止默认行为示例
+    document.addEventListener('contextmenu', function (event) {
+      event.preventDefault(); // 阻止默认右键菜单
+      console.log('\n默认右键菜单已被阻止（可自定义右键菜单）');
+    });
+  </script>
+</body>
+
+</html>

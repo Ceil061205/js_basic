@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>19_元素Element-创建元素和将元素插入DOM</title>
+  <style>
+    .box {
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .highlight {
+      background: #f5fafe;
+      color: #2f54eb;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 目标容器 -->
+  <div id="targetContainer">初始容器</div>
+  <button id="createAndInsert">创建并插入单个元素</button>
+  <button id="batchInsert">批量创建插入元素</button>
+  <button id="insertBefore">插入到指定位置</button>
+
+  <script>
+    const container = document.getElementById('targetContainer');
+
+    // ========== 1. 创建单个元素 + 基础插入（appendChild） ==========
+    document.getElementById('createAndInsert').addEventListener('click', () => {
+      // 步骤1：创建元素
+      const newEl = document.createElement('div');
+      // 设置元素属性/内容
+      newEl.className = 'box highlight';
+      newEl.textContent = '单个创建的元素（插入末尾）';
+      newEl.dataset.id = 'single-1';
+
+      // 步骤2：插入到DOM（容器末尾）
+      container.appendChild(newEl);
+    });
+
+    // ========== 2. 批量创建 + 高效插入（DocumentFragment） ==========
+    document.getElementById('batchInsert').addEventListener('click', () => {
+      // 创建文档片段（临时容器，不触发DOM重排）
+      const fragment = document.createDocumentFragment();
+
+      // 批量创建元素
+      for (let i = 1; i <= 3; i++) {
+        const item = document.createElement('div');
+        item.className = 'box';
+        item.textContent = `批量创建的元素${i}`;
+        fragment.appendChild(item); // 先插入片段
+      }
+
+      // 一次性插入到DOM（仅1次重排，性能优）
+      container.appendChild(fragment);
+    });
+
+    // ========== 3. 插入到指定位置（insertBefore） ==========
+    document.getElementById('insertBefore').addEventListener('click', () => {
+      const newEl = document.createElement('div');
+      newEl.className = 'box highlight';
+      newEl.textContent = '插入到容器第一个子元素前';
+
+      // 语法：父元素.insertBefore(新元素, 参考元素)
+      // 参考元素为firstChild → 插入到容器首位；为null则等效appendChild
+      container.insertBefore(newEl, container.firstChild);
+    });
+
+    // ========== 补充：其他插入方式 ==========
+    // 4. 替换元素（replaceChild）
+    const replaceEl = () => {
+      const newEl = document.createElement('div');
+      newEl.textContent = '替换后的元素';
+      // 语法：父元素.replaceChild(新元素, 被替换元素)
+      if (container.firstChild) {
+        container.replaceChild(newEl, container.firstChild);
+      }
+    };
+
+    // 5. 现代API：append/prepend（支持多元素/文本）
+    const modernInsert = () => {
+      const el1 = document.createElement('span');
+      el1.textContent = '前置插入';
+      const el2 = document.createElement('span');
+      el2.textContent = '后置插入';
+
+      container.prepend(el1); // 插入到容器最前面
+      container.append(el2);  // 插入到容器最后面
+    };
+
+    // ========== 核心API总结 ==========
+    console.log(`
+      1. 创建：document.createElement('标签名') → 生成空元素
+      2. 插入末尾：父元素.appendChild(新元素)
+      3. 插入指定位置：父元素.insertBefore(新元素, 参考元素)
+      4. 批量插入：DocumentFragment + appendChild（减少重排）
+      5. 替换元素：父元素.replaceChild(新元素, 旧元素)
+      6. 现代插入：prepend(前置) / append(后置)（支持多元素）
+    `);
+  </script>
+</body>
+
+</html>

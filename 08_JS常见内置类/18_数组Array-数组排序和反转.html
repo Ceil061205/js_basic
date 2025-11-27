@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = [1,99,3,4,0,-1,1]
+    arr.sort(function(item1,item2){
+      return item1-item2//升序
+    })
+    console.log(arr);
+    console.log(arr.reverse());//反转
+    
+    arr.sort(function (item1, item2) {
+        return item2 - item1
+      })
+    console.log(arr);
+
+    var stu = [
+      {id:'001',age:19},
+      {id:'002',age:11}
+    ]
+    stu.sort(function(item1,item2){
+      return item1.age - item2.age
+    })
+    console.log(stu);
+ 
+  </script>
+</body>
+</html>
