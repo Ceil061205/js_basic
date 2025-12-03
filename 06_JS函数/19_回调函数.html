@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 函数回调
+    // 回调函数就是一个通过参数传递给另一个函数的函数。
+    // 回调函数不是由该函数的实现直接调用的，而是在特定的事件或条件发生时由环境调用。
+    function foo(fn) {
+      // 通过fn去调用bar函数，这就是回调函数的典型用法。
+      fn()
+    }
+    function bar() {
+      console.log('bar')
+    }
+    foo(bar)
+
+    // 回调函数通常用于异步编程，例如在JavaScript中处理网络请求、定时器等。
+    // function fetchData(url, callback) {
+    //   console.log('longtime');
+      
+    //   var list = ['a', 'b', 'c']
+    //   callback(list)
+
+    // }
+    // function handleResult(data) {
+    //   console.log('这里拿到结果list', data)
+    // }
+
+    // request('https://example.com/data',handleResult)
+
+
+     function fetchData(url, callback) {
+        console.log('longtime');
+
+        var list = ['a', 'b', 'c']
+        callback(list)
+
+      }
+     
+      // 匿名函数作为回调
+      request('hul',function handleResult(data) {
+        console.log('这里拿到结果list', data)
+      })
+
+
+  </script>
+</body>
+</html>
