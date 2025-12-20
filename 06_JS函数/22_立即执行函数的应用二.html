@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="btn">点击</button>
+  <button class="btn">点击</button>
+  <script>
+    var btnEls = document.querySelectorAll('.btn');
+    // 可以用let代替var，这样每次点击都会打印出正确的按钮编号。
+    for (var i = 0; i < btnEls.length; i++) {//这里的i用var是全局变量，在事件触发时，循环已经结束。所以每次点击都会打印出“按钮2被点击”
+      var btn = btnEls[i];
+      (function(m){
+        btn.addEventListener('click', function () {
+          console.log(`按钮${m + 1}被点击`);
+        });
+      })(i);//传入i作为参数，在事件触发时，可以获取到正确的值。
+    }
+  </script>
+</body>
+</html>

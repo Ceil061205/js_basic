@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // JavaScript 对象传递是引用传递，但又创建了一个新的对象，所以不影响原来的对象。
+    // function foo(a) {
+    //   a = {
+    //     name: 'a'
+    //   }
+    // }
+    // var obj = {
+    //   name: 'obj'
+    // }
+    // foo(obj);
+    // console.log(obj);// 输出：{name: "obj"}
+
+    // 传入一个对象，在里面修改了对象的属性值。
+    function foo(a) {
+      a.name = 'a'
+    } 
+    var obj = {
+      name: 'obj'
+    }
+    foo(obj);
+    console.log(obj);// 输出：{name: "a"}
+    
+  </script>
+</body>
+</html>

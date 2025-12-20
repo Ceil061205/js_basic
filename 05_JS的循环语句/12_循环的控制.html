@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var a = [1, 2, 3, 4, 6, 89]
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] % 2 === 0) {
+        break
+      }
+      console.log(a[i])
+    }
+
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] % 2 === 0) {
+        // 跳出当前循环，继续下一次循环,不执行后面的代码
+        continue
+      }
+      console.log(a[i])
+    }
+  </script>
+</body>
+</html>

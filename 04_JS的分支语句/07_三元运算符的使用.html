@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var info = {
+      name: "John",
+      age: 30,
+      city: "New York"
+    };
+
+    // 使用可选链操作符（Optional Chaining Operator）来安全地访问嵌套属性
+    var city = info?.address?.city; // 如果info或info.address不存在，则返回undefined而不是抛出错误。
+
+    console.log(city); // undefined 或者如果存在的话，打印城市名字。
+
+    // 给变量赋值，如果变量不存在则赋值为空对象
+    var obj = info ? info : {};
+
+  </script>
+</body>
+</html>

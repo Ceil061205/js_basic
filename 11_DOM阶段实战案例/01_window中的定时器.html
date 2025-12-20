@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="out">取消time定时器</button>
+  <button class="out1">取消interval定时器</button>
+  <script>
+    function foo() {
+      console.log('kkk');
+    }
+
+    var id1 = setTimeout(foo, 1000);//后面可以传参
+    var id2 = setInterval(foo, 3000);
+
+    var timerbtn = document.querySelector('.out');
+    var timerbtn1 = document.querySelector('.out1');
+
+    timerbtn.addEventListener('click', function () {
+      clearTimeout(id1);
+    });
+    timerbtn1.addEventListener('click', function () {
+      clearInterval(id2);
+    });
+  </script>
+</body>
+</html>

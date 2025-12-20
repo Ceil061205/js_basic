@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var foo1 = "";
+    var foo2 = 0;
+
+    // == 在类型不同的情况下，会先进行数值转换，然后再比较
+    // null比较特殊,会当成一个对象和原生类型进行比较
+    // 空字符串和0都会被转换成数字，然后再进行比较
+    console.log(foo1 == null); // false
+    console.log(foo2 == null); // false
+    console.log(foo1 == foo2); // true
+    // === 在类型不同的情况下，不会进行转换，直接返回false
+    console.log(foo1 === foo2); // false
+  </script>
+</body>
+</html>
