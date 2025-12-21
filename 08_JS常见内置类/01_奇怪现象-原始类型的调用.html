@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 包装类型：String、Number、Boolean、Symbol、BigInt
+    // 根据原始值创建一个对象，并返回这个对象的引用。
+    // 创造的包装类被销毁
+
+    // 原始类型居然可以调用方法，这是为什么？
+    // 因为原始类型在调用方法时会先被封装为对象，然后再调用该方法。
+    // 比如：var name = 'dhh dd'; 相当于 var name = new String('dhh dd');
+    // 封装为对象之后再调用方法，所以原始类型也可以调用方法。
+    var name = 'dhh dd'
+
+    // function String(str) {
+    //   this.str = str;
+    //   this.length = this.str.length;
+    //   this.split = function(separator) {
+    //     return this.str.split(separator);
+    //   }
+    // }
+
+    console.log(name.length);
+    console.log(name.split(' '));
+    
+    
+  </script>
+</body>
+</html>

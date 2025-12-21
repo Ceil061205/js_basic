@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 200px;
+      background-color: red;
+    }
+    span {
+      width: 100px;
+      height: 100px;
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <span>
+
+    </span>
+  </div>
+  <script>
+    var boxEl = document.querySelector('.box');
+    var spanEl = document.querySelector('span');
+    // 一组, 不支持冒泡, 进入子元素无变化
+    // boxEl.onmouseenter = function() {
+    //   boxEl.style.backgroundColor = 'green';
+    //   console.log('enter');
+      
+    // };
+    // boxEl.onmouseleave = function() {
+    //   boxEl.style.backgroundColor = 'yellow';
+    //   console.log('leave');
+    // };
+    // spanEl.onmouseenter = function() {
+    //   spanEl.style.backgroundColor = 'green';
+    //   console.log('span enter');
+    // };
+    // spanEl.onmouseleave = function() {
+    //   spanEl.style.backgroundColor = 'yellow';
+    //   console.log('span leave');
+    // };
+
+    // 另一组, 支持冒泡, 进入子元素, 先调用父元素的mouseout, 再调用子元素的mouseover,因为支持冒泡,所以会将over事件传递给到父元素上
+    boxEl.onmouseover = function() {
+      boxEl.style.backgroundColor = 'pink';
+      console.log('over');
+    };
+    boxEl.onmouseout = function() {
+      boxEl.style.backgroundColor = 'red';
+      console.log('out');
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // 浏览器中存在一个全局对象window
+    // 作用一: 查找变量时, 最后会找到window上
+    // 作用二: 将一些浏览器全局给我们的变量/函数/对象, 放在window对象上
+    // 作用三: 使用var定义的变量会被默认添加到window上面
+    console.log(window);
+    
+    var msg = '11'
+    function foo() {
+      // console.log(msg);
+      alert('1');
+      // var obj = new Object();
+      console.log(window.Object === Object);
+    }
+    foo();
+
+    console.log(window.msg);
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // 栈
+    var name = "John";
+    var age = 30;
+
+    // 定义对象类型, 堆
+    var obj = {};
+    var foo = function() {};
+    function bar() {}
+    
+    console.log(typeof foo);// function --> object
+
+    foo.age = 20; // 给函数添加属性，此时foo变成了对象类型
+    console.log(foo.age); // 20
+
+    function Dog() {}
+    // 构造函数类)上加方法, 称之为类方法
+    Dog.say = function() {
+      console.log("汪汪汪");
+    }; 
+  </script>
+</body>
+</html>

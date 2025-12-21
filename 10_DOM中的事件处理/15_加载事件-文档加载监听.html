@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+
+  </style>
+</head>
+<body>
+
+  <script>
+    // DOMContentLoaded, 已经加载完html内容,构建dom树了,但img等外部资源还没加载完成
+    window.addEventListener('DOMContentLoaded', function() {
+      // 获取img元素, 并打印其宽度样式值
+      var imageEl = document.querySelector('img');
+      console.log(imageEl.offsetHeight);// 0, 因为图片还没加载完成
+      
+    });
+
+    // 注册事件监听, 页面加载完成后执行,外部资源加载完成,全部加载完
+    window.onload = function() {
+      var boxEl = document.querySelector('.box');
+      boxEl.style.backgroundColor = 'blue';
+      var imageEl = document.querySelector('img');
+      console.log(imageEl.offsetHeight);// 400, 因为图片已经加载完成
+    }
+
+    window.onresize = function() {
+      console.log('窗口大小改变了');
+    }
+  </script>
+
+  <div class="box"></div>
+  <img src="../image/QQ图片20221102154406.jpg" alt="">
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button>按钮</button>
+  <script>
+    var btn = document.querySelector('button');
+    var msg = 'hello';
+    for (var i = 0; i < 5; i++) {
+      console.log('---');
+      var name = 'hello' + i;
+      btn.onclick = function () {
+        console.log(i);//5
+        console.log(msg); //1111
+        console.log(name); //hello4
+      };
+    }
+
+    msg = '1111'
+    console.log(i); //5
+    console.log(name); //hello4
+
+    
+      
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+<body>
+  <form action="">
+    <input type="text">
+
+    <button type="reset">reset</button>
+    <button type="submit">submit</button>
+  </form>
+  <script>
+    var input = document.querySelector('input');
+    
+    // 1.获取焦点和失去焦点
+    // input.onfocus = function() {
+    //   console.log('获取焦点');
+    // }
+
+    // input.onblur = function() {
+    //   console.log('失去焦点');
+    // }
+
+    // 2.内容改变
+    // 输入过程中会触发input事件，失去焦点时也会触发change事件。
+    // input.oninput = function() {
+    //   console.log('input内容改变', this.value);
+    // }
+    // onchange <input> select textarea keygen
+    // input.onchange = function() {
+    //   console.log('change内容改变', this.value);
+    // }
+
+    // 3.监听重置和提交
+    var form = document.querySelector('form');
+    // 重置事件
+    form.onreset = function(e) {
+      e.preventDefault();
+      console.log('重置表单');
+    }
+    // 提交事件
+    form.onsubmit = function(e) {
+      e.preventDefault();
+      console.log('提交表单');
+      // 通常在这里会发送ajax请求，将数据提交到服务器。
+    }
+  </script>
+</body>
+</html>

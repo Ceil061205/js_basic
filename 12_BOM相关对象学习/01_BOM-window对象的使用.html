@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="baidu">baidu</button>
+  <button class="close">close</button>
+  <script>
+    // 1.window查看角度
+    // ECMAScript规范: 全局对象-> globalThis
+    // 对于浏览器 -> window
+    // 对于Node.js -> global
+    console.log(globalThis);
+    console.log(window === globalThis);// true
+
+    // 浏览器窗口对象
+    // 浏览器窗口对象属性
+    console.log(window.innerHeight, window.innerWidth); // 视口高度和宽度
+
+    // 2.补充的方法
+    var btn = document.querySelector('.baidu');
+    btn.onclick = function () {
+      window.open('https://www.baidu.com');// 打开一个新的窗口
+    };
+
+    var btn2 = document.querySelector('.close');
+    btn2.onclick = function () {
+      window.close();// 关闭当前窗口，需要有权限才行
+    };
+
+    // hash值变化
+    window.onhashchange = function () {
+      console.log(location.hash);
+    };
+  </script>
+</body>
+</html>

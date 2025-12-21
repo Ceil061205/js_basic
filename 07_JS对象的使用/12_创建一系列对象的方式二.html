@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 工厂函数 --> 一种设计模式
+    // 打印的都是object对象
+    function create(name, age) {
+      var stu = {};
+      stu.name = name;
+      stu.age = age;
+      stu.say = function () {
+        console.log(this.name + " 说：" + this.age);
+      }
+      return stu;
+    }
+
+    var stu1 = create("小明", 20);
+    var stu2 = create("小红", 22);
+    console.log(stu1);// object
+    console.log(stu2);// object
+    
+  </script>
+</body>
+</html>

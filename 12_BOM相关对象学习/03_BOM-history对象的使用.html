@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button>修改history</button>
+  <button class="back">返回上一级</button>
+
+  <script>
+    // 前端路由核心：改变URL但不重新加载页面，从而实现页面的切换。
+    // 1.修改hash
+    // 2.修改history
+
+    // 1.history对应的属性
+    console.log(history.length);
+    console.log(history.state);
+
+    // 2.修改history
+    const button = document.querySelector('button');
+    button.addEventListener('click', () => {
+      // history.pushState( {name: 'xyz'} , '', '/why');// 参数1：状态对象，参数2：标题（基本无用），参数3：路径
+      history.replaceState({name: 'abc'}, '', '/why');// 不能后退
+    })
+    
+    const backButton = document.querySelector('.back');
+    backButton.addEventListener('click', () => {
+      // history.back();
+      // history.forward();
+      // history.go(-1);
+    })
+  </script>
+</body>
+</html>

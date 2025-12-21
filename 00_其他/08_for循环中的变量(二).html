@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="box">
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+  </div>
+  <script>
+    var btn = document.querySelectorAll('button');
+
+    //对每一个按钮的点击进行监听
+    for (var i = 0; i < btn.length; i++) {
+      var btnItemEl = btn[i];
+      btnItemEl.index = i;// 给每个按钮元素绑定一个自定义属性index，用来保存索引值
+
+      btnItemEl.onclick = function () {//每次都创建一个新的函数
+        // console.log(btnItemEl);// 这里打印的是最后一个按钮元素
+
+        // 拿到当前点击的按钮元素
+        // 方案一:每次点击都绑定
+        // console.log(this);
+        // 方案二:先获取索引
+        console.log(this.index);
+        
+      }
+    }
+
+    console.log(i); // 4
+    console.log(btnItemEl); // 最后一个按钮元素
+  </script>
+</body>
+</html>

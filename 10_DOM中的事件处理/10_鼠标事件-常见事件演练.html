@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <script>
+    var boxEl = document.querySelector('.box');
+    boxEl.onclick = function() {
+      boxEl.style.backgroundColor = 'blue';
+    };
+
+    boxEl.oncontextmenu = function(event) {
+      event.preventDefault();
+      boxEl.style.backgroundColor = 'green';
+      console.log('点击了右键');
+    };
+
+    boxEl.onmousedown = function(event) {
+      console.log('鼠标点下去');
+    };
+
+    boxEl.onmouseup = function(event) {
+      console.log('鼠标抬起');
+    };
+
+    boxEl.ondblclick = function(event) {
+      console.log('双击');
+    };
+
+    boxEl.onmouseover = function(event) {
+      console.log('鼠标移入');
+    };
+
+    boxEl.onmouseout = function(event) {
+      console.log('鼠标移出');
+    };
+
+    boxEl.onmousemove = function(event) {
+      console.log('鼠标移动');
+    };
+      
+  </script>
+</body>
+</html>

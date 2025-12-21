@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+<body>
+  <input type="text">
+  <button>搜索</button>
+  <script>
+    // 常见键盘事件：keydown、keyup、keypress
+    var inputEl = document.querySelector('input');
+    var buttonEl = document.querySelector('button');
+    // inputEl.onkeydown = function (e) {
+    //   console.log('keydown', e.key, e.code);
+    // };
+    // inputEl.onkeyup = function (e) {
+    //   console.log('keyup', e.key, e.code);
+    // };
+    // inputEl.onkeypress = function (e) {
+    //   console.log('keypress', e.key, e.code);
+    // };
+    // 非字符按键key和code通常相同
+
+    buttonEl.onclick = function () {
+      console.log('搜索🔍', inputEl.value);
+    };
+    inputEl.onkeyup = function (e) {
+      if (e.key === 'Enter') {
+        // buttonEl.click();
+        console.log('搜索🔍', inputEl.value);
+      }
+    };
+
+    // 按下s自动获取焦点,code不区分大小写
+    document.onkeyup = function (e) {
+      if (e.code === 'KeyS') {
+        inputEl.focus();
+      }
+    };
+  </script>
+</body>
+</html>

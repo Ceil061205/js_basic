@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 300px;
+      background-color: red;
+    }
+    button {
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <button>是啥</button>
+    <button>试试</button>
+    <button>搜索</button>
+  </div>
+  <script>
+    // 1 监听本身就是btn元素
+    // var btnEls = document.querySelectorAll('button');
+    // for (var i = 0; i < btnEls.length; i++) {
+    //   btnEls[i].onmouseenter = function() {
+    //     alert(this.innerText);
+    //   };
+    // }
+
+    // 2 事件委托, enter不能用来做委托, 用mouseover代替
+    var boxEl = document.querySelector('.box');
+    boxEl.onmouseover = function (e) {
+        if (e.target.tagName === 'BUTTON') {
+       alert( e.target.textContent);
+      }
+    };
+  </script>
+</body>
+</html>
